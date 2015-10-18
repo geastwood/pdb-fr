@@ -30,7 +30,7 @@ export function receiveArticles(json) {
 export default function fetchArticles() {
   return function(dispatch) {
     dispatch(requestArticle());
-    fetch('/article', {
+    fetch('/data/article', {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'

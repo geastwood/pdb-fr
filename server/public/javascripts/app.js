@@ -21836,7 +21836,7 @@
 	function fetchArticles() {
 	  return function (dispatch) {
 	    dispatch(requestArticle());
-	    (0, _isomorphicFetch2['default'])('/article', {
+	    (0, _isomorphicFetch2['default'])('/data/article', {
 	      headers: {
 	        'Accept': 'application/json',
 	        'Content-Type': 'application/json'
