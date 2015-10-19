@@ -16,7 +16,6 @@ var get = function(opts, fn) {
       data = data + chunk;
     });
     res.on('end', function() {
-      console.log(data);
       fn(data);
     });
   });

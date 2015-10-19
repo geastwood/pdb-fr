@@ -2,12 +2,16 @@ import React from 'react';
 import ArticleList from './ArticleList';
 import PublisherSummary from './PublisherSummary';
 import AuthorSummary from './AuthorSummary';
+import YearSummary from './YearSummary';
 import {filterArticleByPub, resetPublisherFilter} from './ActionTypes'
 import {connect} from 'react-redux';
 
 var App = React.createClass({
   getPublishers(articles) {
     return articles.filter(article => article.show !== false).map(article => article.publisher);
+  },
+  getYears(articles) {
+    return articles.filter(article => article.show !== false).map(v => v.year).map(Number);
   },
   getAuhtors(articles) {
     return articles
@@ -29,9 +33,15 @@ var App = React.createClass({
         </div>
         <hr/>
         <div className="row">
-          <AuthorSummary
-            isFetching={this.props.articles.isFetching}
-            authors={this.getAuhtors(this.props.articles.items)}/>
+          <div className="col-md-4">
+            <YearSummary years={this.getYears(this.props.articles.items)}/>
+          </div>
+          <div className="col-md-8">
+            <AuthorSummary
+              className="col-md-8"
+              isFetching={this.props.articles.isFetching}
+              authors={this.getAuhtors(this.props.articles.items)}/>
+          </div>
         </div>
         <hr/>
         <div className="row">
