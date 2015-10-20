@@ -1,16 +1,15 @@
 #PDB Frontend
 
-* application -> contains react app
-* server -> contains express server
+* application -> contains React app
+* server -> contains Express server
 
-# start server
+# develop locally
 
-* locally
-`npm start` -> local
+1. `npm install` under both folders `application` and `server`
+2. `cd application` and run `webpack --watch` to what for changes and automatically rebuild
+3. `cd server` and run `npm start` to start node server
+4. open localhost:3000 to view the applicaation
 
-* on server
-1. navigate to folter `/var/www/pdb-fr`
-2. `forever start bin/www`
 
 # deploy on server
 
