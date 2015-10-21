@@ -2,7 +2,8 @@ import * as redux from 'redux';
 
 import {
   FILTER_ARTICLE_BY_PUBLISHERS, RESET_PUBLISHER_FILTER,
-  REQUEST_ARTICLES, RECEIVE_ARTICLES
+  REQUEST_ARTICLES, RECEIVE_ARTICLES,
+  FILTER_ARTICLE_BY_YEAR
 } from './ActionTypes';
 
 /**
@@ -16,6 +17,11 @@ export var articles = function(articles = {
     case FILTER_ARTICLE_BY_PUBLISHERS:
       return Object.assign({}, articles, {items: articles.items.map(article => {
         article.show = action.publishers.indexOf(article.publisher) !== -1;
+        return article;
+      })});
+    case FILTER_ARTICLE_BY_YEAR:
+      return Object.assign({}, articles, {items: articles.items.map(article => {
+        article.show = (action.year === article.year);
         return article;
       })});
     case RESET_PUBLISHER_FILTER:

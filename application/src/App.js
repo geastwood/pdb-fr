@@ -3,7 +3,11 @@ import ArticleList from './ArticleList';
 import PublisherSummary from './PublisherSummary';
 import AuthorSummary from './AuthorSummary';
 import YearSummary from './YearSummary';
-import {filterArticleByPub, resetPublisherFilter} from './ActionTypes'
+import {
+  filterArticleByPub,
+  filterArticleByYear,
+  resetPublisherFilter
+} from './ActionTypes'
 import {connect} from 'react-redux';
 
 var App = React.createClass({
@@ -34,7 +38,10 @@ var App = React.createClass({
         <hr/>
         <div className="row">
           <div className="col-md-4">
-            <YearSummary years={this.getYears(this.props.articles.items)}/>
+            <YearSummary
+              onSeriesClick={(year) => this.props.dispatch(filterArticleByYear(year))}
+              years={this.getYears(this.props.articles.items)}
+            />
           </div>
           <div className="col-md-8">
             <AuthorSummary

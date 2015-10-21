@@ -42,6 +42,11 @@ export default class YearSummary extends Component {
         data: this.format().map(item => {
           return [item.name, item.value];
         }),
+        events: {
+          click: function(ev) {
+            this.props.onSeriesClick(ev.point.name);
+          }.bind(this)
+        },
         dataLabels: {
           enabled: false,
           color: '#FFFFFF',

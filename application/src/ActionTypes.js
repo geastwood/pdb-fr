@@ -3,6 +3,7 @@ import fetch from 'isomorphic-fetch';
 // define actions and action creator
 export const FILTER_ARTICLE_BY_PUBLISHERS = 'FILTER_ARTICLE_BY_PUBLISHERS';
 export const RESET_PUBLISHER_FILTER = 'RESET_PUBLISHER_FILTER';
+export const FILTER_ARTICLE_BY_YEAR = 'FILTER_ARTICLE_BY_YEAR';
 
 export function filterArticleByPub(publishers) {
   return { type: FILTER_ARTICLE_BY_PUBLISHERS, publishers };
@@ -27,6 +28,10 @@ export function receiveArticles(json) {
   };
 }
 
+export function filterArticleByYear(year) {
+  return {type: FILTER_ARTICLE_BY_YEAR, year}
+}
+
 export default function fetchArticles() {
   return function(dispatch) {
     dispatch(requestArticle());
@@ -42,3 +47,4 @@ export default function fetchArticles() {
     });
   };
 }
+
