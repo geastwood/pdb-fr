@@ -1,0 +1,21 @@
+{
+  "name": "pdb-fr",
+  "version": "0.0.1",
+  "description": "pdb frontend",
+  "main": "index.js",
+  "scripts": {
+    "develop": "cd application && webpack --watch",
+    "server": "cd server && nodemon bin/www",
+    "deploy": "./deploy.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geastwood/pdb-fr.git"
+  },
+  "author": "Fei Liu <liu.feiwood@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/geastwood/pdb-fr/issues"
+  },
+  "homepage": "https://github.com/geastwood/pdb-fr#readme"
+}

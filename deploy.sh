@@ -11,5 +11,5 @@ echo "                                                  => restart node server"
 echo "========================================================================"
 
 cd $REPO && git pull
-cd $APP && webpack
-cd $SERVER && forever restartall
+cd $APP && webpack && npm install
+cd $SERVER && npm install && forever restartall
