@@ -5,7 +5,7 @@ var get = require('../application/request');
 
 router.get('/article', function(req, res) {
   get({
-    path: '/article'
+    path: '/article?limit=50'
   }, function(data) {
     res.send(JSON.parse(data));
   })
