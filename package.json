@@ -6,7 +6,7 @@
   "scripts": {
     "develop": "cd application && webpack --watch",
     "start": "cd server && nodemon bin/www",
-    "deploy": "./deploy.sh"
+    "deploy": "chmod +x deploy.sh && ./deploy.sh"
   },
   "author": "Fei Liu <liu.feiwood@gmail.com>",
   "license": "MIT",
@@ -16,7 +16,9 @@
     "babel-loader": "^5.3.2",
     "eslint": "^1.6.0",
     "node-libs-browser": "^0.5.3",
-    "webpack": "^1.12.2"
+    "webpack": "^1.12.2",
+    "eslint-config-airbnb": "0.0.8",
+    "eslint-plugin-react": "^3.3.1"
   },
   "dependencies": {
     "isomorphic-fetch": "^2.1.1",
