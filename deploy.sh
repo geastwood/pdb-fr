@@ -1,7 +1,7 @@
 #!/bin/sh
 
 REPO=/var/www/pdb-fr
-APP=$REPO/application
+APP=$REPO
 SERVER=$REPO/server
 
 echo "========================================================================"
