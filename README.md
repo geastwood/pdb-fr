@@ -3,6 +3,7 @@
 * application -> contains React app
 * server -> contains Express server
 
+
 # develop locally
 
 1. `npm install` under both folders `application` and `server`
@@ -15,3 +16,7 @@
 1. login to server
 2. navigate to /var/www/pdb-fr
 3. in command line type `./deploy.sh`
+
+* require `webpack` and `forever` module globally
+* `npm install webpack -g`
+* `npm install forever -g`
