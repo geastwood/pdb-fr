@@ -1,4 +1,5 @@
 import * as redux from 'redux';
+import {routerStateReducer} from 'redux-router';
 
 import {
   FILTER_ARTICLE_BY_PUBLISHERS, RESET_PUBLISHER_FILTER,
@@ -12,7 +13,7 @@ import {
 export var articles = function(articles = {
   isFetching: false,
   items: []
-}, action) {
+}, action = null) {
   switch(action.type) {
     case FILTER_ARTICLE_BY_PUBLISHERS:
       return Object.assign({}, articles, {items: articles.items.map(article => {
@@ -47,5 +48,6 @@ export var publisherFilter = function(state, action) {
 
 export default redux.combineReducers({
   publisherFilter,
-  articles
+  articles,
+  router: routerStateReducer
 });

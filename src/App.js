@@ -2,6 +2,7 @@ import React from 'react';
 import ArticleList from './ArticleList';
 import PublisherSummary from './PublisherSummary';
 import AuthorSummary from './AuthorSummary';
+import {Route, Link} from 'react-router';
 import YearSummary from './YearSummary';
 import {
   filterArticleByPub,
@@ -27,6 +28,7 @@ var App = React.createClass({
   render() {
     return (
       <div>
+        <Link to="/about">About</Link>
         <div className="row">
           <PublisherSummary
             isFetching={this.props.articles.isFetching}
