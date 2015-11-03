@@ -1,14 +1,16 @@
 #PDB Frontend
 
-* application -> contains React app
+* src -> contains React app
 * server -> contains Express server
 
 
 # develop locally
 
+* `npm install -g nodemon`
+
 1. `npm install` under both folders `application` and `server`
-2. `npm run develop` OR `cd application` and run `webpack --watch` to what for changes and automatically rebuild
-3. `npm run server` OR `cd server` and run `npm start` to start node server
+2. `npm run develop` OR run `webpack --watch` to what for changes and automatically rebuild
+3. `npm start` OR `cd server` and run `npm start` to start node server
 4. open localhost:3000 to view the application
 
 # deploy on server
