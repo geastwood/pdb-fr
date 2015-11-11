@@ -20,7 +20,7 @@ export default class AuthorSummary extends Component {
     }
   }
   getAll() {
-    return entry(group(this.props.authors), 'count')
+    return this.props.authors;
   }
   toggleShow() {
     this.setState({showAll: !this.state.showAll});
@@ -50,13 +50,13 @@ export default class AuthorSummary extends Component {
       <ul style={style.ul}>
         {total.slice(0, limit - 1).map((author, i) => {
           return (
-            <li key={i}
+            <li key={author.id}
               style={style.li}>
               <button
                 className="btn btn-primary btn-xs"
                 type="button"
                 >
-                {author.name}{author.value > 1 ? ' (' + author.value + ')' : ''}
+                {author.name}
               </button>
             </li>
           )

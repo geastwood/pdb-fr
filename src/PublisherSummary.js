@@ -1,11 +1,12 @@
 import React from 'react';
 import PublisherItem from './PublisherItem';
-import {group, entry} from './util';
+import {format} from './helper/Publisher';
 import Progressbar from './component/progressbar';
+import bian from 'bian';
 
 export default React.createClass({
   getPublishers() {
-    return entry(group(this.props.publishers), 'count');
+    return this.props.publishers.bian().uniqueBy('id').toValue();
   },
   render() {
     if (this.props.isFetching) {
@@ -24,10 +25,10 @@ export default React.createClass({
         <ul
           style={{listStyle: 'none', margin: 0}}
           className="publisher-summary">
-          {this.getPublishers().map((publisher, key) => {
+          {this.getPublishers().map((publisher) => {
             return (
               <PublisherItem
-                key={key}
+                key={publisher.id}
                 publisher={publisher}
                 onPublisherClick={this.props.onPublisherClick}
               />

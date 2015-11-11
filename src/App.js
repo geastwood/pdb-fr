@@ -13,7 +13,7 @@ import {connect} from 'react-redux';
 
 var App = React.createClass({
   getPublishers(articles) {
-    return articles.filter(article => article.show !== false).map(article => article.publisher);
+    return articles.filter(article => article.show !== false).map(article => article.journal);
   },
   getYears(articles) {
     return articles.filter(article => article.show !== false).map(v => v.year).map(Number);
@@ -22,7 +22,7 @@ var App = React.createClass({
     return articles
       .filter(article => article.show !== false)
       .reduce((rst, article) => {
-        return rst.concat(article.author.split(';'))
+        return rst.concat(article.authors)
       }, []).sort();
   },
   render() {

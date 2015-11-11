@@ -17,7 +17,7 @@ export var articles = function(articles = {
   switch(action.type) {
     case FILTER_ARTICLE_BY_PUBLISHERS:
       return Object.assign({}, articles, {items: articles.items.map(article => {
-        article.show = action.publishers.indexOf(article.publisher) !== -1;
+        article.show = action.publishers.indexOf(article.journal) !== -1;
         return article;
       })});
     case FILTER_ARTICLE_BY_YEAR:

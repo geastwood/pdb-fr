@@ -10,7 +10,7 @@ export default class PublisherItem extends Component {
     return (
       <li
         style={style}
-        onClick={() => this.props.onPublisherClick([publisher.name])}
+        onClick={() => this.props.onPublisherClick([publisher])}
         >
         <button
           className="btn btn-primary btn-sm"
