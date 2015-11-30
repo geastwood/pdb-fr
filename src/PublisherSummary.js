@@ -1,12 +1,11 @@
 import React from 'react';
 import PublisherItem from './PublisherItem';
-import {format} from './helper/Publisher';
 import Progressbar from './component/progressbar';
-import bian from 'bian';
+import {uniqueBy} from 'huan';
 
 export default React.createClass({
   getPublishers() {
-    return this.props.publishers.bian().uniqueBy('id').toValue();
+    return uniqueBy('id', this.props.publishers);
   },
   render() {
     if (this.props.isFetching) {

@@ -10,21 +10,9 @@ import {
   resetPublisherFilter
 } from './ActionTypes'
 import {connect} from 'react-redux';
+import {getAuthors, getPublishers, getYears} from './helper';
 
 var App = React.createClass({
-  getPublishers(articles) {
-    return articles.filter(article => article.show !== false).map(article => article.journal);
-  },
-  getYears(articles) {
-    return articles.filter(article => article.show !== false).map(v => v.year).map(Number);
-  },
-  getAuhtors(articles) {
-    return articles
-      .filter(article => article.show !== false)
-      .reduce((rst, article) => {
-        return rst.concat(article.authors)
-      }, []).sort();
-  },
   render() {
     return (
       <div>
@@ -32,7 +20,7 @@ var App = React.createClass({
         <div className="row">
           <PublisherSummary
             isFetching={this.props.articles.isFetching}
-            publishers={this.getPublishers(this.props.articles.items)}
+            publishers={getPublishers(this.props.articles.items)}
             onPublisherClick={(publishers) => this.props.dispatch(filterArticleByPub(publishers))}
             onResetPublisherFilter={() => this.props.dispatch(resetPublisherFilter())}
           />
@@ -42,7 +30,7 @@ var App = React.createClass({
           <div className="col-md-4">
             <YearSummary
               onSeriesClick={(year) => this.props.dispatch(filterArticleByYear(year))}
-              years={this.getYears(this.props.articles.items)}
+              years={getYears(this.props.articles.items)}
             />
           </div>
           <div className="col-md-8">
@@ -50,7 +38,7 @@ var App = React.createClass({
               display={25}
               className="col-md-8"
               isFetching={this.props.articles.isFetching}
-              authors={this.getAuhtors(this.props.articles.items)}/>
+              authors={getAuthors(this.props.articles.items)}/>
           </div>
         </div>
         <hr/>

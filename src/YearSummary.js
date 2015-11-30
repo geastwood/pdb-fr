@@ -8,7 +8,7 @@ export default class YearSummary extends Component {
   componentDidUpdate() {
     new Highcharts.Chart({
       chart: {
-        renderTo: this.yearChart.getDOMNode(),
+        renderTo: this.yearChart,
         type: 'column'
       },
       xAxis: {

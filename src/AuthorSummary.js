@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {group, entry} from './util';
 
 var style = {
   ul: {
@@ -27,7 +26,7 @@ export default class AuthorSummary extends Component {
   }
   render() {
     var total = this.getAll(),
-      limit = Math.min(this.state.display, total.length),
+      limit = Math.min(this.state.display, Object.keys(total).length),
         controlBtn = (
           <li
             key="control"
@@ -40,7 +39,7 @@ export default class AuthorSummary extends Component {
         );
 
       if (this.state.showAll) {
-        limit = total.length;
+        limit = Object.keys(total).length;
       }
 
     if (this.props.isFetching) {
@@ -48,19 +47,20 @@ export default class AuthorSummary extends Component {
     }
     return (
       <ul style={style.ul}>
-        {total.slice(0, limit - 1).map((author, i) => {
+        {Object.keys(total).slice(0, limit - 1).map((id, i) => {
+          var name = total[id][0].name;
           return (
-            <li key={author.id}
+            <li key={id}
               style={style.li}>
               <button
                 className="btn btn-primary btn-xs"
                 type="button"
                 >
-                {author.name}
+                {name}
               </button>
             </li>
           )
-        }).concat(this.state.display < total.length ? controlBtn : [])}
+        }).concat(this.state.display < Object.keys(total).length ? controlBtn : [])}
       </ul>
     )
   }
