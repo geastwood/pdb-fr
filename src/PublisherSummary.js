@@ -3,10 +3,11 @@ import PublisherItem from './PublisherItem';
 import Progressbar from './component/progressbar';
 import {uniqByKey} from 'huan';
 
+var getPublishers = (publishers) => {
+  return uniqByKey('id', publishers);
+};
+
 export default React.createClass({
-  getPublishers() {
-    return uniqByKey('id', this.props.publishers);
-  },
   render() {
     if (this.props.isFetching) {
       return <Progressbar text='loading publishers...'/>
@@ -24,7 +25,7 @@ export default React.createClass({
         <ul
           style={{listStyle: 'none', margin: 0}}
           className="publisher-summary">
-          {this.getPublishers().map((publisher) => {
+          {getPublishers(this.props.publishers).map((publisher) => {
             return (
               <PublisherItem
                 key={publisher.id}

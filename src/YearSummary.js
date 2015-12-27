@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import * as util from './util';
+import {compose, reduceObj, groupBy, id, map} from 'huan';
+
+var format = compose(reduceObj((carry, v) => carry.concat([{name: v.key, value: v.value.length}]), []), groupBy(id));
 
 export default class YearSummary extends Component {
-  format() {
-    return util.entry(util.group(this.props.years), 'count');
-  }
   componentDidUpdate() {
     new Highcharts.Chart({
       chart: {
@@ -39,7 +38,7 @@ export default class YearSummary extends Component {
       },
       series: [{
         name: 'Year',
-        data: this.format().map(item => {
+        data: format(this.props.years).map(item => {
           return [item.name, item.value];
         }),
         events: {
@@ -60,6 +59,7 @@ export default class YearSummary extends Component {
       }]
     });
   }
+
   render() {
     return (
       <div ref={ref => this.yearChart = ref} style={{height: '250px'}}></div>
