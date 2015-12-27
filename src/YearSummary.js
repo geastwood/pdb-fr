@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {compose, reduceObj, groupBy, id, map} from 'huan';
+import {compose, reduceObj, groupBy, id, map, pair} from 'huan';
 
-var format = compose(reduceObj((carry, v) => carry.concat([{name: v.key, value: v.value.length}]), []), groupBy(id));
+var format = compose(pair, map(v => v.length), groupBy(id));
 
 export default class YearSummary extends Component {
   componentDidUpdate() {
@@ -39,7 +39,7 @@ export default class YearSummary extends Component {
       series: [{
         name: 'Year',
         data: format(this.props.years).map(item => {
-          return [item.name, item.value];
+          return [item[0], item[1]];
         }),
         events: {
           click: function(ev) {
