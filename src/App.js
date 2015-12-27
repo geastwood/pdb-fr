@@ -35,7 +35,7 @@ var App = React.createClass({
           </div>
           <div className="col-md-8">
             <AuthorSummary
-              display={25}
+              display={5}
               className="col-md-8"
               isFetching={this.props.articles.isFetching}
               authors={getAuthors(this.props.articles.items)}/>
