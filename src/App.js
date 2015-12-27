@@ -11,44 +11,45 @@ import {
 } from './ActionTypes'
 import {connect} from 'react-redux';
 import {getAuthors, getPublishers, getYears} from './helper';
+import {Grid, Row, Col} from 'react-bootstrap';
 
 var App = React.createClass({
   render() {
     return (
-      <div>
+      <Grid>
         <Link to="/about">About</Link>
-        <div className="row">
+        <Row>
           <PublisherSummary
             isFetching={this.props.articles.isFetching}
             publishers={getPublishers(this.props.articles.items)}
             onPublisherClick={(publishers) => this.props.dispatch(filterArticleByPub(publishers))}
             onResetPublisherFilter={() => this.props.dispatch(resetPublisherFilter())}
           />
-        </div>
+        </Row>
         <hr/>
-        <div className="row">
-          <div className="col-md-4">
+        <Row>
+          <Col md={4}>
             <YearSummary
               onSeriesClick={(year) => this.props.dispatch(filterArticleByYear(year))}
               years={getYears(this.props.articles.items)}
             />
-          </div>
-          <div className="col-md-8">
+          </Col>
+          <Col md={8}>
             <AuthorSummary
               display={5}
               className="col-md-8"
               isFetching={this.props.articles.isFetching}
               authors={getAuthors(this.props.articles.items)}/>
-          </div>
-        </div>
+          </Col>
+        </Row>
         <hr/>
-        <div className="row">
+        <Row>
           <ArticleList
             isFetching={this.props.articles.isFetching}
             articles={this.props.articles.items}
           />
-        </div>
-      </div>
+        </Row>
+      </Grid>
     )
   }
 });
