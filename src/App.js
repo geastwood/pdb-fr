@@ -7,7 +7,8 @@ import YearSummary from './YearSummary';
 import {
   filterArticleByPub,
   filterArticleByYear,
-  resetPublisherFilter
+  resetPublisherFilter,
+fetchAuthor
 } from './ActionTypes'
 import {connect} from 'react-redux';
 import {getAuthors, getPublishers, getYears} from './helper';
@@ -39,6 +40,8 @@ var App = React.createClass({
               display={5}
               className="col-md-8"
               isFetching={this.props.articles.isFetching}
+              dispatch={this.props.dispatch}
+              authorsFull={this.props.authors}
               authors={getAuthors(this.props.articles.items)}/>
           </Col>
         </Row>

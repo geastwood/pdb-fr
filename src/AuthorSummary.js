@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
+import AuthorItem from './AuthorItem';
 import {Button} from 'react-bootstrap';
+import {fetchAuthor} from './ActionTypes';
 
 var style = {
   ul: {
@@ -11,6 +13,7 @@ var style = {
     margin: '2px'
   }
 };
+
 export default class AuthorSummary extends Component {
   constructor(props) {
     super(props);
@@ -26,6 +29,12 @@ export default class AuthorSummary extends Component {
 
   toggleShow() {
     this.setState({showAll: !this.state.showAll});
+  }
+
+  handleClick(ev, id) {
+    console.log(Object.keys(this.props.authorsFull));
+    this.props.dispatch(fetchAuthor(id));
+    console.log(Object.keys(this.props.authorsFull));
   }
 
   render() {
@@ -51,12 +60,11 @@ export default class AuthorSummary extends Component {
     }
     return (
       <ul style={style.ul}>
-        {Object.keys(total).slice(0, limit - 1).map((id, i) => {
+        {Object.keys(total).slice(0, limit - 1).map(id => {
           var name = total[id][0].name;
           return (
-            <li key={id}
-                style={style.li}>
-              <Button bsSize="xsmall" bsStyle="primary"> {name} </Button>
+            <li key={id} style={style.li}>
+              <AuthorItem id={id} name={name} dispatch={this.props.dispatch} authorsFull={this.props.authorsFull}/>
             </li>
           )
         }).concat(this.state.display < Object.keys(total).length ? controlBtn : [])}

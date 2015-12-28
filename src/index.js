@@ -4,7 +4,7 @@ import thunkMiddleware from 'redux-thunk';
 import {Provider} from 'react-redux';
 import reducers from './Reducers';
 import App from './App'
-import fetchArticles from './ActionTypes';
+import {fetchArticles} from './ActionTypes';
 
 // create store with reducers
 var storeWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);

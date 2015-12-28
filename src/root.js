@@ -1,4 +1,4 @@
-import fetchArticles from './ActionTypes';
+import {fetchArticles} from './ActionTypes';
 import React, {Component} from 'react';
 import Dom from 'react-dom';
 import About from './container/About/';

@@ -5,6 +5,9 @@ export const FILTER_ARTICLE_BY_PUBLISHERS = 'FILTER_ARTICLE_BY_PUBLISHERS';
 export const RESET_PUBLISHER_FILTER = 'RESET_PUBLISHER_FILTER';
 export const FILTER_ARTICLE_BY_YEAR = 'FILTER_ARTICLE_BY_YEAR';
 
+export const REQUEST_AUTHOR = 'REQUEST_AUTHOR';
+export const RECEIVE_AUTHOR = 'RECEIVE_AUTHOR';
+
 export function filterArticleByPub(publishers) {
   return { type: FILTER_ARTICLE_BY_PUBLISHERS, publishers };
 }
@@ -32,7 +35,7 @@ export function filterArticleByYear(year) {
   return {type: FILTER_ARTICLE_BY_YEAR, year}
 }
 
-export default function fetchArticles() {
+export function fetchArticles() {
   return function(dispatch) {
     dispatch(requestArticle());
     fetch('/data/article', {
@@ -49,3 +52,29 @@ export default function fetchArticles() {
   };
 }
 
+export function requestAuthor(authorId) {
+  return {
+    type: REQUEST_AUTHOR,
+    authorId
+  }
+}
+
+export function receiveAuthor(data, authorId) {
+  return {
+    type: RECEIVE_AUTHOR,
+    data, authorId
+  };
+}
+export function fetchAuthor(authorId) {
+  return dispatch => {
+    dispatch(requestAuthor(authorId));
+    fetch(`/data/author/${authorId}`, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => res.json())
+    .then(json => dispatch(receiveAuthor(json, authorId)))
+  };
+}
