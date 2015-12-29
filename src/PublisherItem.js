@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Button} from 'react-bootstrap';
 
 export default class PublisherItem extends Component {
   render() {
@@ -10,18 +11,15 @@ export default class PublisherItem extends Component {
     return (
       <li
         style={style}
-        onClick={() => this.props.onPublisherClick([publisher.name])}
+        onClick={() => this.props.onPublisherClick([publisher])}
         >
-        <button
-          className="btn btn-primary btn-sm"
-          type="button"
-          >
+        <Button bsStyle="primary" bsSize="small">
           {publisher.name} <span
             className="badge"
             >
             {publisher.value}
           </span>
-        </button>
+        </Button>
       </li>
     )
   }

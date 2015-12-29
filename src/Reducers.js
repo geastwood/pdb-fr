@@ -1,9 +1,10 @@
 import * as redux from 'redux';
+import {routerStateReducer} from 'redux-router';
 
 import {
   FILTER_ARTICLE_BY_PUBLISHERS, RESET_PUBLISHER_FILTER,
   REQUEST_ARTICLES, RECEIVE_ARTICLES,
-  FILTER_ARTICLE_BY_YEAR
+  FILTER_ARTICLE_BY_YEAR, REQUEST_AUTHOR, RECEIVE_AUTHOR
 } from './ActionTypes';
 
 /**
@@ -12,7 +13,7 @@ import {
 export var articles = function(articles = {
   isFetching: false,
   items: []
-}, action) {
+}, action = null) {
   switch(action.type) {
     case FILTER_ARTICLE_BY_PUBLISHERS:
       return Object.assign({}, articles, {items: articles.items.map(article => {
@@ -21,7 +22,7 @@ export var articles = function(articles = {
       })});
     case FILTER_ARTICLE_BY_YEAR:
       return Object.assign({}, articles, {items: articles.items.map(article => {
-        article.show = (action.year === article.year);
+        article.show = (Number(action.year) === article.year);
         return article;
       })});
     case RESET_PUBLISHER_FILTER:
@@ -45,7 +46,20 @@ export var publisherFilter = function(state, action) {
   return action.publishers || [];
 };
 
+export var authors = (state = {}, action) => {
+  switch (action.type) {
+    case REQUEST_AUTHOR:
+      return state;
+    case RECEIVE_AUTHOR:
+      return Object.assign({}, state, {[action.authorId]: action.data});
+    default:
+      return state;
+  }
+};
+
 export default redux.combineReducers({
   publisherFilter,
-  articles
+  articles,
+  authors,
+  router: routerStateReducer
 });

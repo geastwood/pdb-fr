@@ -1,14 +1,18 @@
 import React, {Component} from 'react';
-import * as util from './util';
+import {compose, reduceObj, groupBy, id, map, pair} from 'huan';
+import _ from 'lodash';
+
+var format = compose(pair, map(v => v.length), groupBy(id));
 
 export default class YearSummary extends Component {
-  format() {
-    return util.entry(util.group(this.props.years), 'count');
+  shouldComponentUpdate(newProps) {
+    return !_.isEqual(newProps.years, this.cachedYears);
   }
   componentDidUpdate() {
+    this.cachedYears = this.props.years;
     new Highcharts.Chart({
       chart: {
-        renderTo: this.yearChart.getDOMNode(),
+        renderTo: this.yearChart,
         type: 'column'
       },
       xAxis: {
@@ -39,8 +43,8 @@ export default class YearSummary extends Component {
       },
       series: [{
         name: 'Year',
-        data: this.format().map(item => {
-          return [item.name, item.value];
+        data: format(this.props.years).map(item => {
+          return [item[0], item[1]];
         }),
         events: {
           click: function(ev) {
@@ -60,6 +64,7 @@ export default class YearSummary extends Component {
       }]
     });
   }
+
   render() {
     return (
       <div ref={ref => this.yearChart = ref} style={{height: '250px'}}></div>

@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {group, entry} from './util';
+import AuthorItem from './AuthorItem';
+import {Button} from 'react-bootstrap';
+import {fetchAuthor} from './ActionTypes';
 
 var style = {
   ul: {
@@ -11,6 +13,7 @@ var style = {
     margin: '2px'
   }
 };
+
 export default class AuthorSummary extends Component {
   constructor(props) {
     super(props);
@@ -19,48 +22,52 @@ export default class AuthorSummary extends Component {
       showAll: false
     }
   }
+
   getAll() {
-    return entry(group(this.props.authors), 'count')
+    return this.props.authors;
   }
+
   toggleShow() {
     this.setState({showAll: !this.state.showAll});
   }
+
+  handleClick(ev, id) {
+    console.log(Object.keys(this.props.authorsFull));
+    this.props.dispatch(fetchAuthor(id));
+    console.log(Object.keys(this.props.authorsFull));
+  }
+
   render() {
     var total = this.getAll(),
-      limit = Math.min(this.state.display, total.length),
-        controlBtn = (
-          <li
-            key="control"
-            onClick={this.toggleShow.bind(this)}
-            >
-            <button className="btn btn-xs" style={style.li}>
-              {this.state.showAll ? 'Show less' : 'Show all'}
-            </button>
-          </li>
-        );
+      limit = Math.min(this.state.display, Object.keys(total).length),
+      controlBtn = (
+        <li
+          key="control"
+          onClick={this.toggleShow.bind(this)}
+        >
+          <Button bsSize="xsmall" bsStyle="link" style={style.li}>
+            {this.state.showAll ? 'Show less' : 'Show all'}
+          </Button>
+        </li>
+      );
 
-      if (this.state.showAll) {
-        limit = total.length;
-      }
+    if (this.state.showAll) {
+      limit = Object.keys(total).length;
+    }
 
     if (this.props.isFetching) {
       return <div className="row" style={{textAlign: 'center'}}>Loading author's summary...</div>;
     }
     return (
       <ul style={style.ul}>
-        {total.slice(0, limit - 1).map((author, i) => {
+        {Object.keys(total).slice(0, limit - 1).map(id => {
+          var name = total[id][0].name;
           return (
-            <li key={i}
-              style={style.li}>
-              <button
-                className="btn btn-primary btn-xs"
-                type="button"
-                >
-                {author.name}{author.value > 1 ? ' (' + author.value + ')' : ''}
-              </button>
+            <li key={id} style={style.li}>
+              <AuthorItem authorId={id} authorName={name} dispatch={this.props.dispatch} authorsFull={this.props.authorsFull}/>
             </li>
           )
-        }).concat(this.state.display < total.length ? controlBtn : [])}
+        }).concat(this.state.display < Object.keys(total).length ? controlBtn : [])}
       </ul>
     )
   }

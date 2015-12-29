@@ -2,63 +2,61 @@ import React from 'react';
 import ArticleList from './ArticleList';
 import PublisherSummary from './PublisherSummary';
 import AuthorSummary from './AuthorSummary';
+import {Route, Link} from 'react-router';
 import YearSummary from './YearSummary';
 import {
   filterArticleByPub,
   filterArticleByYear,
-  resetPublisherFilter
+  resetPublisherFilter,
+  fetchAuthor, fetchArticles
 } from './ActionTypes'
 import {connect} from 'react-redux';
+import {getAuthors, getPublishers, getYears} from './helper';
+import {Grid, Row, Col} from 'react-bootstrap';
 
 var App = React.createClass({
-  getPublishers(articles) {
-    return articles.filter(article => article.show !== false).map(article => article.publisher);
-  },
-  getYears(articles) {
-    return articles.filter(article => article.show !== false).map(v => v.year).map(Number);
-  },
-  getAuhtors(articles) {
-    return articles
-      .filter(article => article.show !== false)
-      .reduce((rst, article) => {
-        return rst.concat(article.author.split(';'))
-      }, []).sort();
+  componentWillMount() {
+    this.props.dispatch(fetchArticles());
   },
   render() {
     return (
-      <div>
-        <div className="row">
+      <Grid>
+        <Link to="/about/12">About with Id</Link>
+        <Link to="/about">About</Link>
+        <Row>
           <PublisherSummary
             isFetching={this.props.articles.isFetching}
-            publishers={this.getPublishers(this.props.articles.items)}
+            publishers={getPublishers(this.props.articles.items)}
             onPublisherClick={(publishers) => this.props.dispatch(filterArticleByPub(publishers))}
             onResetPublisherFilter={() => this.props.dispatch(resetPublisherFilter())}
           />
-        </div>
+        </Row>
         <hr/>
-        <div className="row">
-          <div className="col-md-4">
+        <Row>
+          <Col md={4}>
             <YearSummary
               onSeriesClick={(year) => this.props.dispatch(filterArticleByYear(year))}
-              years={this.getYears(this.props.articles.items)}
+              years={getYears(this.props.articles.items)}
             />
-          </div>
-          <div className="col-md-8">
+          </Col>
+          <Col md={8}>
             <AuthorSummary
-              display={25}
+              display={5}
               className="col-md-8"
               isFetching={this.props.articles.isFetching}
-              authors={this.getAuhtors(this.props.articles.items)}/>
-          </div>
-        </div>
+              dispatch={this.props.dispatch}
+              authorsFull={this.props.authors}
+              authors={getAuthors(this.props.articles.items)}/>
+          </Col>
+        </Row>
         <hr/>
-        <div className="row">
+        <Row>
           <ArticleList
             isFetching={this.props.articles.isFetching}
             articles={this.props.articles.items}
           />
-        </div>
-      </div>
+        </Row>
+      </Grid>
     )
   }
 });

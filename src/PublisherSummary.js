@@ -1,12 +1,14 @@
 import React from 'react';
 import PublisherItem from './PublisherItem';
-import {group, entry} from './util';
 import Progressbar from './component/progressbar';
+import {uniqByKey} from 'huan';
+import {Button} from 'react-bootstrap';
+
+var getPublishers = (publishers) => {
+  return uniqByKey('id', publishers);
+};
 
 export default React.createClass({
-  getPublishers() {
-    return entry(group(this.props.publishers), 'count');
-  },
   render() {
     if (this.props.isFetching) {
       return <Progressbar text='loading publishers...'/>
@@ -16,18 +18,18 @@ export default React.createClass({
         style={{float: 'left', margin: '5px'}}
         onClick={this.props.onResetPublisherFilter}
         >
-        <button className="btn btn-sm" type="button">
+        <Button bsStyle="link" bsSize="small" type="button">
           Reset
-        </button>
+        </Button>
       </li>);
       return (
         <ul
           style={{listStyle: 'none', margin: 0}}
           className="publisher-summary">
-          {this.getPublishers().map((publisher, key) => {
+          {getPublishers(this.props.publishers).map((publisher) => {
             return (
               <PublisherItem
-                key={key}
+                key={publisher.id}
                 publisher={publisher}
                 onPublisherClick={this.props.onPublisherClick}
               />
