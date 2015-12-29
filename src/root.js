@@ -1,4 +1,3 @@
-import {fetchArticles} from './ActionTypes';
 import React, {Component} from 'react';
 import Dom from 'react-dom';
 import About from './container/About/';
@@ -19,15 +18,13 @@ var store = compose(
     })
 )(createStore)(reducers);
 
-console.log(store);
-
-store.dispatch(fetchArticles());
-
 Dom.render(
     <Provider store={store}>
         <ReduxRouter>
             <Route path="/" component={App}/>
-            <Route path="about" component={About}/>
+            <Route path="about" component={About}>
+              <Route path=":id" component={About}/>
+            </Route>
         </ReduxRouter>
     </Provider>
     , document.getElementById('app'));

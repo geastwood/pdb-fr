@@ -8,16 +8,20 @@ import {
   filterArticleByPub,
   filterArticleByYear,
   resetPublisherFilter,
-fetchAuthor
+  fetchAuthor, fetchArticles
 } from './ActionTypes'
 import {connect} from 'react-redux';
 import {getAuthors, getPublishers, getYears} from './helper';
 import {Grid, Row, Col} from 'react-bootstrap';
 
 var App = React.createClass({
+  componentWillMount() {
+    this.props.dispatch(fetchArticles());
+  },
   render() {
     return (
       <Grid>
+        <Link to="/about/12">About with Id</Link>
         <Link to="/about">About</Link>
         <Row>
           <PublisherSummary
