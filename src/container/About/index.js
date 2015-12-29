@@ -1,16 +1,14 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
+import {Grid, Row, Col} from 'react-bootstrap';
 
 export default class About extends Component {
-  componentWillMount() {
-    debugger;
-  }
   render() {
     return (
-      <div>
+      <Grid>
         <Link to="/">Home</Link>
-        <div>about {this.props.params.id}</div>
-      </div>
+        <Row>about {this.props.params.id}</Row>
+      </Grid>
     );
   }
 }
