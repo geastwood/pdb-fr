@@ -64,7 +64,7 @@ export default class AuthorSummary extends Component {
           var name = total[id][0].name;
           return (
             <li key={id} style={style.li}>
-              <AuthorItem id={id} name={name} dispatch={this.props.dispatch} authorsFull={this.props.authorsFull}/>
+              <AuthorItem authorId={id} authorName={name} dispatch={this.props.dispatch} authorsFull={this.props.authorsFull}/>
             </li>
           )
         }).concat(this.state.display < Object.keys(total).length ? controlBtn : [])}

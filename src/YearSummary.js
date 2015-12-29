@@ -1,10 +1,15 @@
 import React, {Component} from 'react';
 import {compose, reduceObj, groupBy, id, map, pair} from 'huan';
+import _ from 'lodash';
 
 var format = compose(pair, map(v => v.length), groupBy(id));
 
 export default class YearSummary extends Component {
+  shouldComponentUpdate(newProps) {
+    return !_.isEqual(newProps.years, this.cachedYears);
+  }
   componentDidUpdate() {
+    this.cachedYears = this.props.years;
     new Highcharts.Chart({
       chart: {
         renderTo: this.yearChart,

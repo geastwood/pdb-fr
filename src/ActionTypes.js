@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch';
+import {prop} from 'huan';
 
 // define actions and action creator
 export const FILTER_ARTICLE_BY_PUBLISHERS = 'FILTER_ARTICLE_BY_PUBLISHERS';
@@ -9,10 +10,10 @@ export const REQUEST_AUTHOR = 'REQUEST_AUTHOR';
 export const RECEIVE_AUTHOR = 'RECEIVE_AUTHOR';
 
 export function filterArticleByPub(publishers) {
-  return { type: FILTER_ARTICLE_BY_PUBLISHERS, publishers };
+  return {type: FILTER_ARTICLE_BY_PUBLISHERS, publishers};
 }
 export function resetPublisherFilter() {
-  return { type: RESET_PUBLISHER_FILTER };
+  return {type: RESET_PUBLISHER_FILTER};
 }
 
 export const REQUEST_ARTICLES = 'REQUEST_ARTICLES';
@@ -44,11 +45,11 @@ export function fetchArticles() {
         'Content-Type': 'application/json'
       }
     })
-    .then(res => res.json())
-    .then(json => {
-      console.log(json.data);
-      dispatch(receiveArticles(json.data));
-    });
+      .then(res => res.json())
+      .then(json => {
+        console.log(json.data);
+        dispatch(receiveArticles(json.data));
+      });
   };
 }
 
@@ -65,16 +66,22 @@ export function receiveAuthor(data, authorId) {
     data, authorId
   };
 }
+
 export function fetchAuthor(authorId) {
-  return dispatch => {
+  return (dispatch, getState) => {
+    var authors = getState().authors, authorData;
     dispatch(requestAuthor(authorId));
-    fetch(`/data/author/${authorId}`, {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(res => res.json())
-    .then(json => dispatch(receiveAuthor(json, authorId)))
+    if ((authorData = prop(authorId, authors)) && authorData.success !== false) {
+      dispatch(receiveAuthor(authorData, authorId));
+    } else {
+      fetch(`/data/author/${authorId}`, {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(res => res.json())
+        .then(json => dispatch(receiveAuthor(json, authorId)))
+    }
   };
 }
