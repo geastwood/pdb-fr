@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "develop": "webpack --watch",
-    "start": "cd server && nodemon bin/www",
+   "start": "cd server && node bin/www",
     "deploy": "chmod +x deploy.sh && ./deploy.sh"
   },
   "author": "Fei Liu <liu.feiwood@gmail.com>",
@@ -32,7 +32,6 @@
     "react-redux": "^3.1.0",
     "react-router": "1.0.0-rc3",
     "redux": "^3.0.2",
-    "redux-router": "^1.0.0-beta3",
     "redux-thunk": "^1.0.0"
   }
 }

@@ -36,8 +36,9 @@ export function filterArticleByYear(year) {
   return {type: FILTER_ARTICLE_BY_YEAR, year}
 }
 
-export function fetchArticles() {
+export function fetchArticles(keyword) {
   return function(dispatch) {
+    console.log('article search keyword', keyword);
     dispatch(requestArticle());
     fetch('/data/article', {
       headers: {

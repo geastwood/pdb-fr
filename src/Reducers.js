@@ -1,5 +1,4 @@
 import * as redux from 'redux';
-import {routerStateReducer} from 'redux-router';
 
 import {
   FILTER_ARTICLE_BY_PUBLISHERS, RESET_PUBLISHER_FILTER,
@@ -60,6 +59,5 @@ export var authors = (state = {}, action) => {
 export default redux.combineReducers({
   publisherFilter,
   articles,
-  authors,
-  router: routerStateReducer
+  authors
 });
