@@ -1,13 +1,20 @@
 {
-  "framework": {
-    "weight": 5,
-    "relatedTerms": [
-      {
-        "name": "a"
-      }
-    ]
+  "terms": {
+    "framework": {
+      "markup": {
+        "action": "highlight"
+      },
+      "weight": 5,
+      "relatedTerms": [
+        {
+          "name": "a"
+        }
+      ]
+    },
+    "thermal": {
+      "weight": 4
+    }
   },
-  "thermal": {
-    "weight": 4
+  "highlight": {
   }
 }
