@@ -1,0 +1,13 @@
+{
+  "framework": {
+    "weight": 5,
+    "relatedTerms": [
+      {
+        "name": "a"
+      }
+    ]
+  },
+  "thermal": {
+    "weight": 4
+  }
+}
