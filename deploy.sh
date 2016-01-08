@@ -12,4 +12,5 @@ echo "========================================================================"
 
 cd $REPO && git pull
 cd $APP && webpack
+cd $APP/lib/pdb-onsite && webpack && cp $APP/lib/pdb-onsite/dist $APP/server/public
 cd $SERVER && forever restartall
